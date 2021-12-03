@@ -66,10 +66,36 @@ function revealHidden() {
  }
 }
 
+function generateQuestion() {
+	var i = 0;
+	var question = document.getElementById("question");
+	var one = document.getElementById("a");
+	var two = document.getElementById("b");
+	var three = document.getElementById("c");
+	var four = document.getElementById("d")
+	questionTitle = questionList[i].question;
+	choiceOne = questionList[i].a;
+	choiceTwo = questionList[i].b;
+	choiceThree = questionList[i].c;
+	choiceFour = questionList[i].d;
+
+	question.textContent = questionTitle;
+	one.textContent = choiceOne
+	two.textContent = choiceTwo;
+	three.textContent = choiceThree;
+	four.textContent = choiceFour;
+
+
+}
+
 //start quiz button 
 document.querySelector('#start-quiz').addEventListener('click',function() {
 	revealHidden();
 	timer();
+	generateQuestion();
 });
 
-
+//submit button
+document.querySelector('#submit').addEventListener('click',function() {
+	window.alert("test");
+});
