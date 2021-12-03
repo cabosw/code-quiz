@@ -1,5 +1,39 @@
 
-
+//array of question content objects
+var questionList = [
+	{
+		question: "What data type returns a value of true or false?",
+		a: "Symbol",
+		b: "Boolean",
+		c: "String",
+		d: "BigInt",
+		correct: "Boolean"
+	},
+	{
+		question: "Which of the following is NOT a correct way to declare a variable?",
+		a: "let",
+		b: "var",
+		c: "new",
+		d: "const",
+		correct: "new"
+	},
+	{
+		question: "What does the sort() method do?",
+			a: "Retrieve a specific element from an array",
+			b: "Combines all array elements into a string",
+			c: "Adds a new item to an array",
+			d: "Sorts an array alphabetically",
+			correct: "Sorts an array alphabetically"
+	},
+	{
+		question: "Which of the following math functions returns a rounded integer?",
+		a: "Math.max()",
+		b: "Math.abs()",
+		c: "Math.round()",
+		d: "Math.pow()",
+		correct: "Math.max()"
+	}
+]
 //countdown timer function
 function timer() {
 	var countdownEl = document.getElementById("timer");
@@ -37,4 +71,5 @@ document.querySelector('#start-quiz').addEventListener('click',function() {
 	revealHidden();
 	timer();
 });
+
 
