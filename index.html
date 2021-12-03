@@ -7,39 +7,41 @@
   <link rel="stylesheet" href="./assets/style.css" />
   <title>Code Quiz</title>
 </head>
+
 <body>
   <header>
     <div class="high-score" id="high-score">
-    <a href=#tbd >View High Score</a>
+      <a href=#tbd>View High Score</a>
     </div>
     <div id="timer"></div>
   </header>
-  <section class = "initial" id="initial">
+  <section class="initial" id="initial">
     <h1>Coding Quiz Challenge</h1>
     <p>
       Try to answer the following code-related questions within the time limit.
       The quiz will end once you have finished all the questions or run out of time.
-      Be careful not to rush, incorrect answers will penalize your score/time by 10 seconds! 
+      Be careful not to rush, incorrect answers will penalize your score/time by 10 seconds!
     </p>
     <button class="btn" id="start-quiz" type="button">Start Quiz</button>
 
   </section>
   <section class="hidden">
+
+    <div id="question">Question</div>
+
+    <form id="answers" class="hidden">
+      <input type="radio" name="answer"><label id="a"></label>
     
-    <h2 id ="question">Question</h2>
- 
-    <form class="hidden" >
-      <input type="radio" id="a"> Answer
-      <br>
-      <input type="radio" id="b"> Answer
-      <br>
-      <input type="radio" id="c"> Answer
-      <br>
-      <input type="radio" id="d"> Answer
+      <input type="radio" name="answer"><label id="b"></label>
+    
+      <input type="radio" name="answer"><label id="c"></label>
+    
+      <input type="radio" name="answer"><label id="d"></label>
     </form>
     <button id="submit" type="button">Submit</button>
 
   </section>
   <script src="./assets/script.js"></script>
 </body>
+
 </html>
