@@ -1,4 +1,12 @@
 
+//variables for question content and input labels
+var question = document.getElementById("question");
+var one = document.getElementById("a");
+var two = document.getElementById("b");
+var three = document.getElementById("c");
+var four = document.getElementById("d");
+
+
 //array of question content objects
 var questionList = [
 	{
