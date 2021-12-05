@@ -45,56 +45,94 @@ var questionList = [
 //countdown timer function
 function timer() {
 	var countdownEl = document.getElementById("timer");
-	
-	//hides quiz start page content
-	document.getElementById("initial").style.display='none';
-	document.getElementById("high-score").style.display='none';
+
 	
 	//defines initial start time for countdown
-	var timeLeft = 300;
+	var timeLeft = 60;
 	
 	//countdown function
 	var timeInterval = setInterval(function() {
 		
   //adds timer
-	if (timeLeft > 0){
+	if (timeLeft >= 0){
     countdownEl.textContent= 'Time left: ' + timeLeft ;
-    timeLeft--;
+    timeLeft --;
     }else{
       clearInterval(timeInterval);
-      countdownEl.textContent ='Time is up';
+      alert('Time is up');
     }
   },1000);   
 }
 
 //function to reveal hidden question content
 function revealHidden() {
+	document.getElementById("initial").style.display='none';
+	document.getElementById("high-score").style.display='none';
 	for (let element of document.getElementsByClassName("hidden")){
 		element.style.display="block";
  }
 }
 
+questionCount = 0;
+
 function generateQuestion() {
-	var i = 0;
-	var question = document.getElementById("question");
-	var one = document.getElementById("a");
-	var two = document.getElementById("b");
-	var three = document.getElementById("c");
-	var four = document.getElementById("d")
+	var i = questionCount
 	questionTitle = questionList[i].question;
-	choiceOne = questionList[i].a;
-	choiceTwo = questionList[i].b;
-	choiceThree = questionList[i].c;
-	choiceFour = questionList[i].d;
+		question.textContent = questionTitle;
 
-	question.textContent = questionTitle;
-	one.textContent = choiceOne
-	two.textContent = choiceTwo;
-	three.textContent = choiceThree;
-	four.textContent = choiceFour;
+		choiceOne = questionList[i].a;
+		choiceTwo = questionList[i].b;
+		choiceThree = questionList[i].c;
+		choiceFour = questionList[i].d;
+
+		one.textContent = choiceOne
+		two.textContent = choiceTwo;
+		three.textContent = choiceThree;
+		four.textContent = choiceFour;
+	
 
 
-}
+
+		}
+		
+
+function checkAnswer() {
+	var i = questionCount;
+	oneValue = questionList[i].a;
+	twoValue = questionList[i].b;
+	threeValue = questionList[i].c;
+	fourValue = questionList[i].d;
+
+	var choice = document.getElementsByName('answer');
+	console.log(choice);
+	var names = choice.values;
+	console.log(names)
+	var current = questionList[questionCount].question;
+	console.log(current);
+	// var correctChoice = current.correct;
+	// var choice;
+	// for (i = 0; i < radios.length; i++) {
+	// 	if (radios[i].value.checked) {
+	// 		choice = radios[i].value
+	// 		console.log(choice)
+	// 	}
+		
+
+	}
+
+
+
+function nextQuestion() {
+	if (questionCount <= questionList.length) {
+		questionCount++;
+		generateQuestion(questionCount);
+		}
+	else {
+		alert('game over');
+	}
+	};
+
+
 
 //start quiz button 
 document.querySelector('#start-quiz').addEventListener('click',function() {
@@ -105,5 +143,9 @@ document.querySelector('#start-quiz').addEventListener('click',function() {
 
 //submit button
 document.querySelector('#submit').addEventListener('click',function() {
-	window.alert("test");
-});
+	document.getElementById('form').reset();
+	// checkAnswer()
+	nextQuestion();
+})
+
+
