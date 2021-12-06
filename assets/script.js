@@ -1,10 +1,13 @@
 
 //variables for question content and input labels
 var question = document.getElementById("question");
-var one = document.getElementById("a");
-var two = document.getElementById("b");
-var three = document.getElementById("c");
-var four = document.getElementById("d");
+var choiceOne = document.getElementById("a");
+var choiceTwo = document.getElementById("b");
+var choiceThree = document.getElementById("c");
+var choiceFour = document.getElementById("d");
+var score = [];
+var timeLeft = 60;
+var timeInterval;
 
 
 //array of question content objects
@@ -39,17 +42,12 @@ var questionList = [
 		b: "Math.abs()",
 		c: "Math.round()",
 		d: "Math.pow()",
-		correct: "Math.max()"
+		correct: "Math.round()"
 	}
 ]
 //countdown timer function
 function timer() {
-	var countdownEl = document.getElementById("timer");
-
-	
-	//defines initial start time for countdown
-	var timeLeft = 60;
-	
+	var countdownEl = document.getElementById("countdown");
 	//countdown function
 	var timeInterval = setInterval(function() {
 		
@@ -61,76 +59,64 @@ function timer() {
       clearInterval(timeInterval);
       alert('Time is up');
     }
+	if (questionCount >= questionList.length){
+		clearInterval(timeInterval);
+	}
+
   },1000);   
 }
 
 //function to reveal hidden question content
 function revealHidden() {
 	document.getElementById("initial").style.display='none';
-	document.getElementById("high-score").style.display='none';
+	document.getElementById("highScore").style.display='none';
 	for (let element of document.getElementsByClassName("hidden")){
 		element.style.display="block";
  }
 }
 
-questionCount = 0;
+function revealHighScore() {
+	quiz.style.display='none';
+	highScore.style.display='block';
+	countdown.style.display='none';
+}
+var questionCount = 0;
 
 function generateQuestion() {
+
 	var i = questionCount
-	questionTitle = questionList[i].question;
+	if (questionCount >= questionList.length ) {
+		alert('quiz over');
+		// hideQuiz();
+		revealHighScore();
+		// localStorage.setItem("score", JSON.stringify(scoreList));
+	} else {
+
+		questionTitle = questionList[i].question;
 		question.textContent = questionTitle;
-
-		choiceOne = questionList[i].a;
-		choiceTwo = questionList[i].b;
-		choiceThree = questionList[i].c;
-		choiceFour = questionList[i].d;
-
-		one.textContent = choiceOne
-		two.textContent = choiceTwo;
-		three.textContent = choiceThree;
-		four.textContent = choiceFour;
 	
-
-
-
-		}
-		
-
-function checkAnswer() {
-	var i = questionCount;
-	oneValue = questionList[i].a;
-	twoValue = questionList[i].b;
-	threeValue = questionList[i].c;
-	fourValue = questionList[i].d;
-
-	var choice = document.getElementsByName('answer');
-	console.log(choice);
-	var names = choice.values;
-	console.log(names)
-	var current = questionList[questionCount].question;
-	console.log(current);
-	// var correctChoice = current.correct;
-	// var choice;
-	// for (i = 0; i < radios.length; i++) {
-	// 	if (radios[i].value.checked) {
-	// 		choice = radios[i].value
-	// 		console.log(choice)
-	// 	}
-		
-
+		choiceOne.textContent = questionList[i].a;
+		choiceTwo.textContent = questionList[i].b;
+		choiceThree.textContent = questionList[i].c;
+		choiceFour.textContent = questionList[i].d;
 	}
+}
 
-
-
-function nextQuestion() {
-	if (questionCount <= questionList.length) {
-		questionCount++;
-		generateQuestion(questionCount);
-		}
-	else {
-		alert('game over');
+function checkAnswer(event) {
+	var response = event.target.textContent
+	var answer = questionList[questionCount].correct;
+		if (response === answer) {
+		alert("correct");
+		score++ ;
+		console.log(score);
+	} else if (response != answer) {
+		alert ('Incorrect! 10 second penalty');
+		timeLeft = timeLeft - 10;
 	}
-	};
+	questionCount++;
+	console.log(questionCount);
+	generateQuestion();
+}
 
 
 
@@ -141,11 +127,7 @@ document.querySelector('#start-quiz').addEventListener('click',function() {
 	generateQuestion();
 });
 
-//submit button
-document.querySelector('#submit').addEventListener('click',function() {
-	document.getElementById('form').reset();
-	// checkAnswer()
-	nextQuestion();
+
+document.querySelectorAll('button[name="answer"]').forEach((elem) => {
+	elem.addEventListener("click", checkAnswer);
 })
-
-

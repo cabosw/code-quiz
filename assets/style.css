@@ -21,7 +21,8 @@ header div a{
   display: none;
 }
 
-input {
-  padding:5px;
+.hiddenScore {
+  display: none;
 }
+
 

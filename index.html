@@ -11,10 +11,10 @@
 
 <body>
   <header>
-    <div class="high-score" id="high-score">
+    <div class="high-score" id="high">
       <a href=#tbd>View High Score</a>
     </div>
-    <div id="timer"></div>
+    <div id="countdown"></div>
   </header>
   <section class="initial" id="initial">
     <h1>Coding Quiz Challenge</h1>
@@ -26,19 +26,26 @@
     <button class="btn" id="start-quiz" type="button">Start Quiz</button>
 
   </section>
-  <section class="hidden">
+  <section id ="quiz" class="hidden">
 
     <div id="question">Question</div>
 
     <form id="form" class="hidden">
-      <button id="a" type="button"></button>
-      <button id="b" type="button"></button>
-      <button id="c" type="button"></button>
-      <button id="d" type="button"></button>
+      <button id="a" name="answer" type="button"></button>
+      <button id="b" name="answer" type="button"></button>
+      <button id="c" name="answer" type="button"></button>
+      <button id="d" name="answer" type="button"></button>
 
     </form>
-    <button id="submit" type="submit">Submit</button>
-
+  </section>
+  <section id="highScore" class="hiddenScore">
+    <div id="score">
+      <p id="your-score">You scored x out of 5</p>
+    </div>
+    <form id="enter-score">
+      <label for="initials" id="label">Enter Your Initials</label><br>
+      <input type='text' id="initials">
+    </form>
   </section>
   <script src="./assets/script.js"></script>
 </body>
