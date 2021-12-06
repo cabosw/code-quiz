@@ -40,12 +40,16 @@
   </section>
   <section id="highScore" class="hiddenScore">
     <div id="score">
-      <p id="your-score">You scored x out of 5</p>
+      <p id="yourScore"></p>
     </div>
     <form id="enter-score">
-      <label for="initials" id="label">Enter Your Initials</label><br>
-      <input type='text' id="initials">
+      <label for="initials" id="label">Enter Your Initials Below. </label><br>
+      <input type='text' id="initials" name="initials" value="">
     </form>
+    <button type='button' id='submitScore'>Submit</button>
+    <ul id="scoreList">
+      <h2>High Scores</h2>
+    </ul>
   </section>
   <script src="./assets/script.js"></script>
 </body>

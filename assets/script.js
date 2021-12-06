@@ -8,8 +8,9 @@ var choiceFour = document.getElementById("d");
 var score = [];
 var timeLeft = 60;
 var timeInterval;
-
-
+var scoreList = document.getElementById('scoreList');
+const storedHighScores = 'highScores'
+var highScores;
 //array of question content objects
 var questionList = [
 	{
@@ -79,6 +80,7 @@ function revealHighScore() {
 	quiz.style.display='none';
 	highScore.style.display='block';
 	countdown.style.display='none';
+	yourScore.textContent= 'You scored ' + score + ' out of 4';
 }
 var questionCount = 0;
 
@@ -103,6 +105,7 @@ function generateQuestion() {
 }
 
 function checkAnswer(event) {
+	
 	var response = event.target.textContent
 	var answer = questionList[questionCount].correct;
 		if (response === answer) {
@@ -118,6 +121,36 @@ function checkAnswer(event) {
 	generateQuestion();
 }
 
+function submitScore() {
+	const newScore = {
+		name: document.querySelector("input[name='initials']").value,
+		score: score
+	};
+
+	
+	const highScoreString = localStorage.getItem(storedHighScores);
+	highScores = 	JSON.parse(highScoreString) ?? [];
+	highScores.push(newScore);
+	highScores.splice(5);
+	localStorage.setItem(storedHighScores, JSON.stringify(highScores));
+	console.log(highScores);
+
+	var name = document.querySelector("input[name='initials']").value;
+	var highScoreEl = document.createElement("li");
+	highScoreEl.textContent = name + " scored " + score + " out of 4";
+	scoreList.appendChild(highScoreEl);
+	getScores()
+}
+
+function getScores() {
+	var localHighScoresString = localStorage.getItem(storedHighScores);
+	var localHighScores = 	JSON.parse(localHighScoresString) ;
+	for (var i=0; i<localHighScores.length; i++) {
+		var createLi = document.createElement("li");
+		createLi.textContent = localHighScores[i].name + " scored " + localHighScores[i].score + " out of 4";
+		scoreList.appendChild(createLi);
+	}
+}
 
 
 //start quiz button 
@@ -127,7 +160,11 @@ document.querySelector('#start-quiz').addEventListener('click',function() {
 	generateQuestion();
 });
 
-
 document.querySelectorAll('button[name="answer"]').forEach((elem) => {
 	elem.addEventListener("click", checkAnswer);
 })
+
+document.querySelector('#submitScore').addEventListener('click', function(event) {
+	event.preventDefault();
+	submitScore()
+});

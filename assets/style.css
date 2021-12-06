@@ -25,4 +25,7 @@ header div a{
   display: none;
 }
 
+ul {
+  list-style: none;
+}
 
