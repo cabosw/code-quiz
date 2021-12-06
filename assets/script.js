@@ -1,5 +1,5 @@
 
-//variables for question content and input labels
+//variables 
 var question = document.getElementById("question");
 var choiceOne = document.getElementById("a");
 var choiceTwo = document.getElementById("b");
@@ -11,6 +11,8 @@ var timeInterval;
 var scoreList = document.getElementById('scoreList');
 const storedHighScores = 'highScores'
 var highScores;
+var questionCount = 0;
+
 //array of question content objects
 var questionList = [
 	{
@@ -82,16 +84,13 @@ function revealHighScore() {
 	countdown.style.display='none';
 	yourScore.textContent= 'You scored ' + score + ' out of 4';
 }
-var questionCount = 0;
 
+//generates new questions from questionList items
 function generateQuestion() {
-
 	var i = questionCount
 	if (questionCount >= questionList.length ) {
 		alert('quiz over');
-		// hideQuiz();
 		revealHighScore();
-		// localStorage.setItem("score", JSON.stringify(scoreList));
 	} else {
 
 		questionTitle = questionList[i].question;
@@ -104,8 +103,8 @@ function generateQuestion() {
 	}
 }
 
+//checks if clicked button choice matches correct answer
 function checkAnswer(event) {
-	
 	var response = event.target.textContent
 	var answer = questionList[questionCount].correct;
 		if (response === answer) {
@@ -121,13 +120,12 @@ function checkAnswer(event) {
 	generateQuestion();
 }
 
+//allows user to input initials and adds name + score to local storage of high scores
 function submitScore() {
 	const newScore = {
 		name: document.querySelector("input[name='initials']").value,
 		score: score
 	};
-
-	
 	const highScoreString = localStorage.getItem(storedHighScores);
 	highScores = 	JSON.parse(highScoreString) ?? [];
 	highScores.push(newScore);
@@ -141,7 +139,7 @@ function submitScore() {
 	scoreList.appendChild(highScoreEl);
 	getScores()
 }
-
+//gets locally stored scores to create high score list
 function getScores() {
 	var localHighScoresString = localStorage.getItem(storedHighScores);
 	var localHighScores = 	JSON.parse(localHighScoresString) ;
@@ -152,13 +150,12 @@ function getScores() {
 	}
 }
 
-
-//start quiz button 
 document.querySelector('#start-quiz').addEventListener('click',function() {
 	revealHidden();
 	timer();
 	generateQuestion();
 });
+
 
 document.querySelectorAll('button[name="answer"]').forEach((elem) => {
 	elem.addEventListener("click", checkAnswer);
